@@ -4,13 +4,11 @@ import Deck from "../model/Deck";
 
 type Props = $ReadOnly<{|
   mode: "add" | "remove",
-  deck: Deck
+  onAdd?: () => void,
+  onRemove?: () => void
 |}>;
 
-function AddRemoveCardBtn({ mode }: Props) {
-  const onRemove = () => null;
-  const onAdd = () => null;
-
+function AddRemoveCardBtn({ mode, onAdd, onRemove }: Props) {
   let classNames = "AddRemoveCardBtn";
   let symbol = "+";
   let onClick = mode === "remove" ? onRemove : onAdd;

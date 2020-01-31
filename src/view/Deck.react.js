@@ -8,24 +8,11 @@ type Props = $ReadOnly<{|
 |}>;
 
 const sides = ["front", "back"];
-
-function DeckView({ deck }: Props) {
-  const [cardIndex, setCardIndex] = useState(0);
-  const [sideIndex, setSideIndex] = useState(0);
-  const onDeckClicked = useCallback(() => {
-    const newSideIndex = (sideIndex + 1) % sides.length;
-    if (newSideIndex === 0) {
-      // advance to the next card.
-      setCardIndex((cardIndex + 1) % deck.cards().length);
-    }
-
-    setSideIndex(newSideIndex);
-  }, [deck, cardIndex, sideIndex]);
-
+function DeckView({ deck, cardIndex, sideIndex, onClick }: Props) {
   const card = deck.cards()[cardIndex];
 
   return (
-    <div onClick={onDeckClicked}>
+    <div onClick={onClick}>
       <Card card={card} side={sides[sideIndex]} />
     </div>
   );
