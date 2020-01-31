@@ -4,8 +4,11 @@ export type Card = $ReadOnly<{
   back: string
 }>;
 
+const sides = ["front", "back"];
+
 class Deck {
   _cards: $ReadOnlyArray<Card>;
+  _cardIndex = 0;
 
   constructor(cards: $ReadOnlyArray<Card>) {
     this._cards = cards;
@@ -13,6 +16,31 @@ class Deck {
 
   cards(): $ReadOnlyArray<Card> {
     return this._cards;
+  }
+
+  advance(): Deck {
+    const newSideIndex = (this._sideIndex + 1) % sides.length;
+    let newCardIndex = this._cardIndex;
+    if (newSideIndex === 0) {
+      newCardIdnex = (this._cardIndex + 1) % this._cards.length;
+    }
+
+    const ret = this._copy();
+    ret._sideIndex = newSideIndex;
+    ret._cardIndex = newCardIdnex;
+
+    return ret;
+  }
+
+  _copy(): Deck {
+    const ret = new Deck(this._cards);
+    ret._sideIndex = this._sideIndex;
+    ret._cardIndex = this._cardIndex;
+    return ret;
+  }
+
+  top(): Card {
+    return this._card[this._cardIndex];
   }
 }
 
@@ -27,8 +55,8 @@ export class NewDeck extends Deck {
     ]);
   }
 
-  cards(): $ReadOnlyArray<Card> {
-    return this._cards;
+  _copy() {
+    return new NewDeck();
   }
 }
 

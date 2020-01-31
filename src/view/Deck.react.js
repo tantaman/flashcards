@@ -4,26 +4,16 @@ import Card from "./Card.react";
 import Deck from "../model/Deck";
 
 type Props = $ReadOnly<{|
-  deck: Deck
+  deck: Deck,
+  onDeckChange: Deck => void
 |}>;
 
-const sides = ["front", "back"];
-
-function DeckView({ deck }: Props) {
-  const [cardIndex, setCardIndex] = useState(0);
-  const [sideIndex, setSideIndex] = useState(0);
+function DeckView({ deck, onDeckChange }: Props) {
   const onDeckClicked = useCallback(() => {
-    const newSideIndex = (sideIndex + 1) % sides.length;
-    if (newSideIndex === 0) {
-      // advance to the next card.
-      setCardIndex((cardIndex + 1) % deck.cards().length);
-    }
+    onDeckChange(deck.advance());
+  }, [deck, onDeckChange]);
 
-    setSideIndex(newSideIndex);
-  }, [deck, cardIndex, sideIndex]);
-
-  const card = deck.cards()[cardIndex];
-
+  const card = deck.top();
   return (
     <div onClick={onDeckClicked}>
       <Card card={card} side={sides[sideIndex]} />
