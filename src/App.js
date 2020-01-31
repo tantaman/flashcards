@@ -1,5 +1,6 @@
 import React from "react";
 import DeckView from "./view/Deck.react";
+import AddRemoveCardBtn from "./view/AddRemoveCardBtn.react";
 import Deck, { NewDeck } from "./model/Deck";
 import "./App.css";
 
@@ -21,7 +22,11 @@ try {
 function App() {
   return (
     <div className="App">
-      <DeckView deck={deck} />
+      <div className="App-deckHolder">
+        <AddRemoveCardBtn mode="add" />
+        <AddRemoveCardBtn mode="remove" />
+        <DeckView deck={deck} />
+      </div>
     </div>
   );
 }

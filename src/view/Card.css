@@ -6,9 +6,6 @@
   border-top-color: #f1f3e1;
   border-left-color: #f1f3e1;
   border-radius: 10px;
-  width: 720px;
-  height: 360px;
-  margin: 20px auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -17,4 +14,7 @@
   font-size: 32px;
   color: #383840;
   user-select: none;
+
+  width: 720px;
+  height: 360px;
 }

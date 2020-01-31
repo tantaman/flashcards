@@ -14,3 +14,9 @@ body {
     transform: rotate(360deg);
   }
 }
+
+.App-deckHolder {
+  width: 720px;
+  height: 360px;
+  margin: 20px auto;
+}
