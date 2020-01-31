@@ -23,8 +23,8 @@ function App() {
   return (
     <div className="App">
       <div className="App-deckHolder">
-        <AddRemoveCardBtn mode="add" />
-        <AddRemoveCardBtn mode="remove" />
+        <AddRemoveCardBtn mode="add" deck={deck} />
+        <AddRemoveCardBtn mode="remove" deck={deck} />
         <DeckView deck={deck} />
       </div>
     </div>
