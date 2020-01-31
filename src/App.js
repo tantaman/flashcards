@@ -3,7 +3,18 @@ import DeckView from "./view/Deck.react";
 import Deck from "./model/Deck";
 import "./App.css";
 
-const deck = new Deck(["Water", "Milk", "To go", "To do", "Make-up"]);
+const deck = new Deck([
+  {
+    contentType: "text",
+    front: "Water",
+    back: "x"
+  },
+  {
+    contentType: "text",
+    front: "To go",
+    back: "x"
+  }
+]);
 
 function App() {
   return (
