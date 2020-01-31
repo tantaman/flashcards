@@ -1,17 +1,10 @@
 import React from "react";
 import DeckView from "./view/Deck.react";
-import Deck from "./model/Deck";
+import Deck, { NewDeck } from "./model/Deck";
 import "./App.css";
 
 const persistedCards = localStorage.getItem("flashcards");
-const defaultCards = [
-  {
-    contentType: "text",
-    front: "You have no cards in your deck.",
-    back: "Create Cards"
-  }
-];
-let deck = null;
+let deck;
 
 try {
   const cards = JSON.parse(persistedCards);
@@ -21,8 +14,8 @@ try {
     throw new Error("No persisted cards");
   }
 } catch (e) {
-  // make an empty deck instance
-  deck = new Deck(defaultCards);
+  // make a new deck instance
+  deck = new NewDeck();
 }
 
 function App() {

@@ -16,4 +16,20 @@ class Deck {
   }
 }
 
+export class NewDeck extends Deck {
+  constructor() {
+    super([
+      {
+        contentType: "text",
+        front: "You have no cards in your deck.",
+        back: "Create Cards"
+      }
+    ]);
+  }
+
+  cards(): $ReadOnlyArray<Card> {
+    return this._cards;
+  }
+}
+
 export default Deck;
