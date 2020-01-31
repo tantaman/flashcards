@@ -1,5 +1,4 @@
 import React, { useState, useCallback } from "react";
-import EmptyDeck from "./EmptyDeck.react";
 import Card from "./Card.react";
 
 import Deck from "../model/Deck";
@@ -24,9 +23,6 @@ function DeckView({ deck }: Props) {
   }, [deck, cardIndex, sideIndex]);
 
   const card = deck.cards()[cardIndex];
-  if (deck.cards().length === 0) {
-    return <EmptyDeck />;
-  }
 
   return (
     <div onClick={onDeckClicked}>
