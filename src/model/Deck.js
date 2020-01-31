@@ -1,7 +1,10 @@
-export type Card = $ReadOnly<{
-  contentType: "text",
-  content: string
-}>;
+export type Card = $ReadOnly<
+  | {
+      contentType: "text",
+      content: string
+    }
+  | string
+>;
 
 class Deck {
   _cards: $ReadOnlyArray<Card>;

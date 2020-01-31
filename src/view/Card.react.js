@@ -6,6 +6,10 @@ type Props = $ReadOnly<{| card: Card |}>;
 
 function CardView({ card }: Props) {
   const contentType = card.contentType;
+  if (contentType == null) {
+    return <div className="Card">{card}</div>;
+  }
+
   switch (contentType) {
     case "text":
       return <div className="Card">{card.content}</div>;

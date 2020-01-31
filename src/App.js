@@ -1,10 +1,9 @@
 import React from "react";
 import DeckView from "./view/Deck.react";
 import Deck from "./model/Deck";
-import logo from "./logo.svg";
 import "./App.css";
 
-const deck = new Deck([]);
+const deck = new Deck(["Water", "Milk", "To go", "To do", "Make-up"]);
 
 function App() {
   return (
