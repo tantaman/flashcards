@@ -17,11 +17,8 @@ class Deck {
   }
 
   advance(): Deck {
-    const newSideIndex = (this._sideIndex + 1) % sides.length;
-    let newCardIndex = this._cardIndex;
-    if (newSideIndex === 0) {
-      newCardIdnex = (this._cardIndex + 1) % this._cards.length;
-    }
+    const card = this._cards[this._cardIndex];
+    if (card.)
 
     const ret = this._copy();
     ret._cardIndex = newCardIdnex;
