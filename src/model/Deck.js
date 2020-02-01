@@ -1,10 +1,8 @@
 export type Card = $ReadOnly<{
   contentType: "text",
-  front: string,
-  back: string
+  sides: $ReadOnlyArray<string>,
+  currentSide: number
 }>;
-
-const sides = ["front", "back"];
 
 class Deck {
   _cards: $ReadOnlyArray<Card>;
@@ -26,7 +24,6 @@ class Deck {
     }
 
     const ret = this._copy();
-    ret._sideIndex = newSideIndex;
     ret._cardIndex = newCardIdnex;
 
     return ret;
@@ -34,7 +31,6 @@ class Deck {
 
   _copy(): Deck {
     const ret = new Deck(this._cards);
-    ret._sideIndex = this._sideIndex;
     ret._cardIndex = this._cardIndex;
     return ret;
   }
