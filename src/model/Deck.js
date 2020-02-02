@@ -20,6 +20,14 @@ export class Flashcard {
     return new Flashcard(data);
   }
 
+  getVisibleSide(perspective: Perspective): string {
+    return this._data.sides[this._data.currentSide];
+  }
+
+  getContentType(): string {
+    return this._data.contentType;
+  }
+
   isStartingSide(perspective: Perspective): boolean {
     switch (perspective) {
       case "normal":
@@ -45,7 +53,7 @@ export default class FlashcardDeck {
     return this._cards;
   }
 
-  advance(): Deck {
+  advance(): FlashcardDeck {
     const card = this._cards[this._cardIndex].advance();
 
     // duplicate the record since all data should be immutable.
@@ -87,18 +95,18 @@ export default class FlashcardDeck {
   }
 
   top(): Flashcard {
-    return this._card[this._cardIndex];
+    return this._cards[this._cardIndex];
   }
 }
 
 export class NewFlashcardDeck extends FlashcardDeck {
   constructor() {
     super([
-      {
+      new Flashcard({
         contentType: "text",
-        front: "You have no cards in your deck.",
-        back: "Create Cards"
-      }
+        sides: ["You have no cards in your deck.", "Create Cards"],
+        currentSide: 0
+      })
     ]);
   }
 

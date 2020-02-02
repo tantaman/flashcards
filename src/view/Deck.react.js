@@ -16,7 +16,7 @@ function DeckView({ deck, onDeckChange }: Props) {
   const card = deck.top();
   return (
     <div onClick={onDeckClicked}>
-      <Card card={card} side={sides[sideIndex]} />
+      <Card card={card} />
     </div>
   );
 }
