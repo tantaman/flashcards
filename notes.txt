@@ -63,3 +63,19 @@ will delegate to new ones.
 
 Class provide a clear contract of things to implement when
 extending.
+
+
+---
+
+Problem with OO ---
+
+The same data may be representative of many types.
+E.g., The exact same data used for flashcards may also want to be used
+for playing cards.
+
+This binding of methods + data means we end up with different types
+even though we have equivalent structures.
+
+So pull out a simpler type (card deck) which is just the subset of stuff
+for all the various types and the higher order interpretations of the deck
+(blackjack, flashcards, poker, etc.) become new types.

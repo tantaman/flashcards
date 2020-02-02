@@ -1,3 +1,5 @@
+// TODO: do a more "strut.io like" model and allow
+// a card to be composed of components, each with a content type?
 export type SerializedFlashcard = $ReadOnly<{
   contentType: "text",
   sides: $ReadOnlyArray<string>,
@@ -6,7 +8,7 @@ export type SerializedFlashcard = $ReadOnly<{
 
 type Perspective = "normal" | "flipped";
 
-class Flashcard {
+export class Flashcard {
   constructor(data: SerializedFlashcard) {
     this._data = data;
   }
@@ -31,7 +33,7 @@ class Flashcard {
 // Don't think of the deck class as simply representing a deck of cards.
 // It represents the game rules too. Maybe this would better be called
 // "game"?
-class FlashcardDeck {
+export default class FlashcardDeck {
   _cards: $ReadOnlyArray<Flashcard>;
   _cardIndex = 0;
 
@@ -104,5 +106,3 @@ export class NewFlashcardDeck extends FlashcardDeck {
     return new NewFlashcardDeck();
   }
 }
-
-export default FlashcardDeck;
