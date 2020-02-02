@@ -4,19 +4,27 @@ export type SerializedFlashcard = $ReadOnly<{
   currentSide: number
 }>;
 
+type Perspective = "normal" | "flipped";
+
 class Flashcard {
   constructor(data: SerializedFlashcard) {
     this._data = data;
   }
 
-  advance(): Flashcard {
+  advance(perspective: Perspective): Flashcard {
     const data = { ...this._data };
-    data.currentSide = (data.currentSide + 1) % data.sides.length;
+    const step = perspective === "normal" ? 1 : -1;
+    data.currentSide = Math.abs((data.currentSide + step) % data.sides.length);
     return new Flashcard(data);
   }
 
-  isStartingSide(): boolean {
-    return this._data.currentSide === 0;
+  isStartingSide(perspective: Perspective): boolean {
+    switch (perspective) {
+      case "normal":
+        return this._data.currentSide === 0;
+      case "flipped":
+        return this._data.currentSide === this._data.sides.length - 1;
+    }
   }
 }
 

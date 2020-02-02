@@ -1,0 +1,65 @@
+-Can do a higher order component that "listens" to the data model and calls
+set state when the model changes.
+
+Should all things in the model be immutable?
+Yes, if we want to have easy passing off to web-workers.
+Yes, if we want to play well with React's rendering
+Yes, if we want easy time-travel
+
+Domain model that hydrates via GraphQL?
+Will this lead to over-fetching for views that don't require all fields
+of the given model object?
+
+Views can still declare what they want.
+Based on __typename we can hydrate to a proper domain model.
+But the model class may have missing data.
+And if you want to execute a function on it that requires those
+missing pieces...
+
+Purely functional app has an advantage here.
+The "domain model" would be anemic and just data.
+
+Mutations on it would be static functions that commit an update
+(e.g., like Relay) to the data, then all UI components that fetched those same
+data elements would update.
+
+We'd need multi-methods then that switch on the type name.
+
+This is where structural typing shines. Those methods would be
+invoked with the data that was fetched. If there is missing data then
+we can fetch it in the UI component.
+
+A proper OO domain model can't have methods on it which structurally type
+against `this`.
+
+Or could you structurally type against `this`? How would you know
+at a given callsite how hyrdated `this` is?
+
+Objects would track their hydration, be network aware, fetch
+as needed?
+
+You could infer what data is required for the UI by doing type analysis
+on how the component uses the model object?
+
+----
+
+The other option is embrace functional-ness? Have multi-methods that
+change what implementation is invoked based on the type of the object
+(e.g., disjoint union on __typename to select an implementation).
+
+But where does this break down? If someone adds more required
+data to a function all UI components that called it need to update --
+they'll have type errors.
+
+Automated type analysis and automated query construction could fix this too.
+
+Classes are really just a matter of organization.
+
+But they do allow modifying behavior through extension. Typed data
+can too.
+
+Shift the tag on the data and the top level functions
+will delegate to new ones.
+
+Class provide a clear contract of things to implement when
+extending.
