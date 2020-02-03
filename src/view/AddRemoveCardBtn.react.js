@@ -1,8 +1,7 @@
-import React, { useState, useCallback } from "react";
+import React, { useCallback } from "react";
 import "./AddRemoveCardBtn.css";
 import invariant from "../core-error/invariant";
 import FlashcardDeck from "../model/Deck";
-import AddCardModal from "./AddCardModal.react.js";
 
 type Props = $ReadOnly<{|
   deck: FlashcardDeck,
@@ -17,11 +16,15 @@ function AddRemoveCardBtn({ deck, onRemove, onAdd }: Props) {
   );
   invariant(
     !(onRemove == null && onAdd == null),
-    "You must specify either onAdd on onRemove"
+    "You must specify either onAdd or onRemove"
   );
 
-  const [isAdding, setIsAdding] = useState(false);
-  const showAddModal = useCallback(() => setIsAdding(true), []);
+  const onAddClick = useCallback(() => {}, []);
+  const onRemoveClick = useCallback(() => {
+    deck.deleteTopCard();
+    onRemove(deck);
+  }, [deck, onRemove]);
+  const onClick = onRemove ? onRemoveClick : onAddClick;
 
   let classNames = "AddRemoveCardBtn";
   let symbol = "+";
@@ -30,9 +33,8 @@ function AddRemoveCardBtn({ deck, onRemove, onAdd }: Props) {
     symbol = "-";
   }
   return (
-    <span className={classNames} onClick={showAddModal}>
+    <span className={classNames} onClick={onClick}>
       {symbol}
-      {isAdding && <AddCardModal deck={deck} />}
     </span>
   );
 }

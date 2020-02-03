@@ -25,14 +25,12 @@ function App() {
   const onDeckChange = useCallback(deck => {
     setDeck(deck);
   }, []);
-  const onAddCard = useCallback(() => {}, []);
-  const onRemoveCard = useCallback(() => {}, []);
 
   return (
     <div className="App">
       <div className="App-deckHolder">
-        <AddRemoveCardBtn onAdd={onAddCard} />
-        <AddRemoveCardBtn onRemove={onRemoveCard} />
+        <AddRemoveCardBtn deck={deck} onAdd={onDeckChange} />
+        <AddRemoveCardBtn deck={deck} onRemove={onDeckChange} />
         <DeckView deck={deck} onDeckChange={onDeckChange} />
       </div>
       <div id="modal-holder"></div>

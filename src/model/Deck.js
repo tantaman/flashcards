@@ -1,10 +1,22 @@
 // TODO: do a more "strut.io like" model and allow
 // a card to be composed of components, each with a content type?
-export type SerializedFlashcard = $ReadOnly<{
-  contentType: "text",
-  sides: $ReadOnlyArray<string>,
-  currentSide: number
-}>;
+export type SerializedFlashcard = $ReadOnly<
+  | {
+      contentType: "text",
+      sides: $ReadOnlyArray<string>,
+      currentSide: number
+    }
+  | {
+      contentType: "emptyDeckMessage",
+      sides: [string, string],
+      currentSide: number
+    }
+  | {
+      contentType: "cardCreator",
+      sides: $ReadOnly<React.Node>,
+      currentSide: number
+    }
+>;
 
 type Perspective = "normal" | "flipped";
 
@@ -83,6 +95,10 @@ export default class FlashcardDeck {
   deleteTopCard(): FlashcardDeck {
     const ret = this._copy();
     ret._cards.splice(this._cardIndex, 1);
+    if (ret._cards.length === 0) {
+      ret._cards.push(emptyDeckCard());
+    }
+
     return ret;
   }
 
@@ -99,16 +115,18 @@ export default class FlashcardDeck {
 
 export class NewFlashcardDeck extends FlashcardDeck {
   constructor() {
-    super([
-      new Flashcard({
-        contentType: "text",
-        sides: ["You have no cards in your deck.", "Create Cards"],
-        currentSide: 0
-      })
-    ]);
+    super([emptyDeckCard()]);
   }
 
   _copy() {
     return new NewFlashcardDeck();
   }
+}
+
+function emptyDeckCard(): Flashcard {
+  return new Flashcard({
+    contentType: "text",
+    sides: ["You have no cards in your deck.", "Create Cards"],
+    currentSide: 0
+  });
 }
