@@ -35,6 +35,7 @@ function App() {
         <AddRemoveCardBtn onRemove={onRemoveCard} />
         <DeckView deck={deck} onDeckChange={onDeckChange} />
       </div>
+      <div id="modal-holder"></div>
     </div>
   );
 }
