@@ -6,7 +6,6 @@ type Props = $ReadOnly<{| card: Flashcard |}>;
 
 function CardView({ card }: Props) {
   const contentType = card.getContentType();
-  console.log(card);
 
   switch (contentType) {
     case "text":

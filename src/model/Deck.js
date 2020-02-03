@@ -13,28 +13,26 @@ export class Flashcard {
     this._data = data;
   }
 
-  advance(perspective: Perspective): Flashcard {
+  advance(): Flashcard {
     const data = { ...this._data };
-    const step = perspective === "normal" ? 1 : -1;
-    data.currentSide = Math.abs((data.currentSide + step) % data.sides.length);
+    data.currentSide = (data.currentSide + 1) % data.sides.length;
     return new Flashcard(data);
   }
 
   getVisibleSide(perspective: Perspective): string {
-    return this._data.sides[this._data.currentSide];
+    return this._data.sides[
+      perspective === "normal"
+        ? this._data.currentSide
+        : this._data.sides.length - 1 - this._data.currentSide
+    ];
   }
 
   getContentType(): string {
     return this._data.contentType;
   }
 
-  isStartingSide(perspective: Perspective): boolean {
-    switch (perspective) {
-      case "normal":
-        return this._data.currentSide === 0;
-      case "flipped":
-        return this._data.currentSide === this._data.sides.length - 1;
-    }
+  isStartingSide(): boolean {
+    return this._data.currentSide === 0;
   }
 }
 
