@@ -11,7 +11,7 @@ type Props = $ReadOnly<{|
 function AddRemoveCardBtn({ onRemove, onAdd }: Props) {
   invariant(
     onRemove == null || onAdd == null,
-    "You cannot specify both on add and onRemove"
+    "You cannot specify both onAdd and onRemove"
   );
   invariant(
     !(onRemove == null && onAdd == null),
