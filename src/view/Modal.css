@@ -1,0 +1,16 @@
+.Modal {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.Modal-inner {
+  width: 720px;
+  height: 360px;
+  margin: auto;
+}
