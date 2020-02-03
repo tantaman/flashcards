@@ -28,12 +28,9 @@ function App() {
 
   return (
     <div className="App">
-      <div className="App-deckHolder">
-        <AddRemoveCardBtn deck={deck} onAdd={onDeckChange} />
-        <AddRemoveCardBtn deck={deck} onRemove={onDeckChange} />
-        <DeckView deck={deck} onDeckChange={onDeckChange} />
-      </div>
-      <div id="modal-holder"></div>
+      <DeckView deck={deck} onDeckChange={onDeckChange} />
+      <AddRemoveCardBtn deck={deck} onAdd={onDeckChange} />
+      <AddRemoveCardBtn deck={deck} onRemove={onDeckChange} />
     </div>
   );
 }
