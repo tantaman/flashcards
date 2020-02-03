@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from "react";
 import DeckView from "./view/Deck.react";
 import AddRemoveCardBtn from "./view/AddRemoveCardBtn.react";
-import FlashcardDeck, { NewFlashcardDeck } from "./model/Deck";
+import FlashcardDeck, { NewFlashcardDeck, emptyDeckCard } from "./model/Deck";
 import "./App.css";
 
 const persistedCards = localStorage.getItem("flashcards");
@@ -16,7 +16,7 @@ try {
   }
 } catch (e) {
   // make a new deck instance
-  intialDeck = new NewFlashcardDeck();
+  intialDeck = new FlashcardDeck([emptyDeckCard()]);
 }
 
 function App() {

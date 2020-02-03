@@ -11,11 +11,6 @@ export type SerializedFlashcard = $ReadOnly<
       sides: [string, string],
       currentSide: number
     }
-  | {
-      contentType: "cardCreator",
-      sides: $ReadOnly<React.Node>,
-      currentSide: number
-    }
 >;
 
 type Perspective = "normal" | "flipped";
@@ -103,7 +98,7 @@ export default class FlashcardDeck {
   }
 
   _copy(): FlashcardDeck {
-    const ret = new FlashcardDeck(this._cards.slice());
+    const ret = new FlashcardDeck(this._cards.concat());
     ret._cardIndex = this._cardIndex;
     return ret;
   }
@@ -111,21 +106,15 @@ export default class FlashcardDeck {
   top(): Flashcard {
     return this._cards[this._cardIndex];
   }
-}
 
-export class NewFlashcardDeck extends FlashcardDeck {
-  constructor() {
-    super([emptyDeckCard()]);
-  }
-
-  _copy() {
-    return new NewFlashcardDeck();
+  stringify(): string {
+    return JSON.stringify(this);
   }
 }
 
-function emptyDeckCard(): Flashcard {
+export function emptyDeckCard(): Flashcard {
   return new Flashcard({
-    contentType: "text",
+    contentType: "emptyDeckMessage",
     sides: ["You have no cards in your deck.", "Create Cards"],
     currentSide: 0
   });

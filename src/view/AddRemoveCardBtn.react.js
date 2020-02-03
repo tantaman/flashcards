@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import "./AddRemoveCardBtn.css";
 import invariant from "../core-error/invariant";
-import FlashcardDeck from "../model/Deck";
+import FlashcardDeck, { Flashcard } from "../model/Deck";
 
 type Props = $ReadOnly<{|
   deck: FlashcardDeck,
@@ -9,6 +9,7 @@ type Props = $ReadOnly<{|
   onAdd: () => void
 |}>;
 
+let newCardNum = 0;
 function AddRemoveCardBtn({ deck, onRemove, onAdd }: Props) {
   invariant(
     onRemove == null || onAdd == null,
@@ -19,10 +20,23 @@ function AddRemoveCardBtn({ deck, onRemove, onAdd }: Props) {
     "You must specify either onAdd or onRemove"
   );
 
-  const onAddClick = useCallback(() => {}, []);
+  const onAddClick = useCallback(() => {
+    ++newCardNum;
+    onAdd(
+      deck.addCard(
+        new Flashcard({
+          contentType: "text",
+          sides: [
+            "New Card (" + newCardNum + ") Front",
+            "New Card (" + newCardNum + ") Back"
+          ],
+          currentSide: 0
+        })
+      )
+    );
+  }, [deck, onAdd]);
   const onRemoveClick = useCallback(() => {
-    deck.deleteTopCard();
-    onRemove(deck);
+    onRemove(deck.deleteTopCard());
   }, [deck, onRemove]);
   const onClick = onRemove ? onRemoveClick : onAddClick;
 
