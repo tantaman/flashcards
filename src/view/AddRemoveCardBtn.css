@@ -5,6 +5,7 @@
   margin-left: 12px;
   color: #383840;
   cursor: pointer;
+  user-select: none;
 }
 
 .AddRemoveCardBtn.remove {
