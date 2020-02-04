@@ -4,21 +4,12 @@ import Card from "./Card.react";
 import Deck from "../model/Deck";
 
 type Props = $ReadOnly<{|
-  deck: Deck,
-  onDeckChange: Deck => void
+  deck: Deck
 |}>;
 
 function DeckView({ deck, onDeckChange }: Props) {
-  const onDeckClicked = useCallback(() => {
-    onDeckChange(deck.advance());
-  }, [deck, onDeckChange]);
-
-  const card = deck.top();
-  return (
-    <div onClick={onDeckClicked}>
-      <Card card={card} />
-    </div>
-  );
+  // move gesture code to this component?
+  return <Card card={deck.top()} />;
 }
 
 export default DeckView;

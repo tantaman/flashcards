@@ -26,6 +26,12 @@ export class Flashcard {
     return new Flashcard(data);
   }
 
+  rewind(): Flashcard {
+    const data = { ...this._data };
+    data.currentSide = Math.abs((data.currentSide - 1) % data.sides.length);
+    return new Flashcard(data);
+  }
+
   getVisibleSide(perspective: Perspective): string {
     return this._data.sides[
       perspective === "normal"
@@ -73,6 +79,22 @@ export default class FlashcardDeck {
       ret._cardIndex = (ret._cardIndex + 1) % ret._cards.length;
     }
 
+    return ret;
+  }
+
+  rewind(): FlashcardDeck {
+    const ret = this._copy();
+    if (this._cards[this._cardIndex].isStartingSide()) {
+      let newIndex = (ret._cardIndex - 1) % ret._cards.length;
+      if (newIndex < 0) {
+        newIndex = ret._cards.length + newIndex;
+      }
+      ret._cardIndex = newIndex;
+
+      return ret;
+    }
+
+    ret._cards[ret._cardIndex] = this._cards[this._cardIndex].rewind();
     return ret;
   }
 

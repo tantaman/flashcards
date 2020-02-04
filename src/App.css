@@ -20,3 +20,11 @@ body {
   height: 360px;
   margin: 20px auto;
 }
+
+#deck-container {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+}
